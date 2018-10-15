@@ -3,6 +3,10 @@
 import matplotlib.pyplot as plt
 from prep_terrain_data import makeTerrainData
 from class_vis import prettyPicture
+from sklearn.metrics import accuracy_score
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.tree import DecisionTreeClassifier
+from time import time
 
 features_train, labels_train, features_test, labels_test = makeTerrainData()
 
@@ -31,7 +35,18 @@ plt.show()
 ### your code here!  name your classifier object clf if you want the 
 ### visualization code (prettyPicture) to show you the decision boundary
 
-
+clf = AdaBoostClassifier(
+            learning_rate=1,
+           n_estimators=500,
+           
+           algorithm="SAMME")
+t0 = time()
+clf.fit(features_train, labels_train)
+print "training time:", round(time()-t0, 3), "s"
+t1 = time()
+pred = clf.predict(features_test)
+print "prediction time:", round(time()-t1, 3), "s"
+print (accuracy_score(labels_test,pred))
 
 
 
