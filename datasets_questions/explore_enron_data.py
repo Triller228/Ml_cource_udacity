@@ -16,7 +16,25 @@
 """
 
 import pickle
-
 enron_data = pickle.load(open("../final_project/final_project_dataset.pkl", "r"))
+enron_data1 = open("../final_project/poi_names.txt", "r")
+
+
+k=0
+for line in enron_data:
+    if (enron_data[line]["poi"]==1):
+        k+=1
+print (k)
+
+
+print(enron_data['PRENTICE JAMES']['total_stock_value'])
+print(enron_data['COLWELL WESLEY']['from_this_person_to_poi'])
+
+k1=0
+for line in enron_data:
+    if (enron_data[line]["email_address"] != 'NaN'):
+        k1 +=1
+print (k1)
+
 
 
