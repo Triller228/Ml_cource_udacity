@@ -48,16 +48,40 @@ for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
             email = open(path, "r")
 
             ### use parseOutText to extract the text from the opened email
+            text = parseOutText(email)
 
             ### use str.replace() to remove any instances of the words
             ### ["sara", "shackleton", "chris", "germani"]
+            if ‘sara’ and ‘shackleton’ in new_str:
+                from_data.append(0)
 
-            ### append the text to word_data
+            if ‘chris’ and 'germani’in new_str:
+                from_data.append(1)
+                
+            new_str = new_str.replace(‘sara’,’’)
+            new_str = new_str.replace(‘shackleton’,’’)
+                
+            new_str = new_str.replace(‘chris’,’’)
+            new_str = new_str.replace(‘germani’,’’)
+
+               ### append the text to word_data
+            word_data.append(text)
 
             ### append a 0 to from_data if email is from Sara, and 1 if email is from Chris
 
-
+            from_data.append(0 if name == "sara" else 1)
+                
             email.close()
+
+print word_data[152]
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+vectorizer = TfidfVectorizer(stop_words = 'english')
+word_data_vector = vectorizer.fit_transform(word_data)
+print(len(vectorizer.get_feature_names()))
+
+
+
 
 print "emails processed"
 from_sara.close()
