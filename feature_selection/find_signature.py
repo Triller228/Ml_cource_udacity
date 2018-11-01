@@ -38,6 +38,20 @@ labels_train   = labels_train[:150]
 
 
 ### your code goes here
+from sklearn import tree
+clf = tree.DecisionTreeClassifier()
+clf = clf.fit(features_train, labels_train)
+pred = clf.predict(features_test)
 
+from sklearn.metrics import accuracy_score
+print (accuracy_score(pred, labels_test))
 
-
+print "Important features:"
+features_list = []
+for index, feature in enumerate(clf.feature_importances_):
+    if feature > 0.0:
+        features_list.append([index, feature])
+for index, feature in sorted(features_list, key=lambda x: (x[1]), reverse=True):
+    print "feature no", index
+    print "importance", feature
+    print '\n'
